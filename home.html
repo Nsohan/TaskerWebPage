@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+      <title>Sohans phone</title>
+      <style type="text/css">
+         body {
+         background-color: black;
+         color: white;
+         width: 100%;
+         }
+         .hidden {
+         display: none;
+         }
+         .container {
+         background-color: white;
+         color: black;
+         width: 700px;
+         border-radius: 20px;
+         border: 2px solid black;
+         padding: 2px;
+         }
+         .heading{
+         color: red;
+         }
+         #media_control{
+         }
+         .media_button{
+         background: transparent;
+         border: none;
+         font-size: 50px;
+         margin: 0px;
+         padding: 0px;
+         }
+         #media_volume{
+         font-size: 50px;
+         font-weight: bold;
+         }
+      </style>
+   </head>
+
+   <body>
+
+	<div id="loginContainer">
+		<h1 class="heading">Login</h1>
+		<form action="/login" method="post" onsubmit="submitLogin(event)">
+		   <label for="username">Username:</label>
+		   <input type="text" id="username" name="username" required><br><br>
+		   <label for="password">Password:</label>
+		   <input type="password" id="password" name="password" required><br><br>
+		   <input type="submit" value="Login">
+		</form>
+	 </div>
+
+
+      <div id="otherItemsContainer" class="hidden">
+         <div id="taskervariable">
+            <div>Phone status</div>
+            <div>
+               <div id="variable_value">Value will appear here/div>
+               </div>
+            </div>
+         </div>
+         <br>
+
+         <div id="say">
+            <div>Say Example</div>
+            <input type="button" value="Say Hello to Phone" onclick="sayHello()"></input>
+         </div>
+
+         <div id="shut">
+            <div>Shut up</div>
+            <input type="button" value= "Shut up" onclick="shutUp()"></input>
+         </div>
+
+         <br>
+         <div id="write">
+            <div>Write Text ✍️ Example</div>
+            <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="30"></textarea>
+         </div>
+         <br>
+         <div id="SayWrite">
+            <div>Write Text to Say 🔊 on Phone</div>
+            <textarea id="saytext" placeholder="Write text to say 🔊 on phone" name="message" rows="3" cols="30"></textarea>
+         </div>
+         <br>
+         <div id="run">
+            <div>Write Autovoice Command</div>
+            <textarea id="runtext" placeholder="Write command to run in your phone" name="message" rows="2" cols="30"></textarea>
+         </div>
+         <br>
+
+         <div id="openfile">
+            <form enctype="multipart/form-data" action="/files?location=Download&redirect=file/Tasker/WebPage/home.html" method="post">
+               <label for="file_open">Select a file to send</label>
+               <br>
+               <input type="file" multiple id="file_open" name="file[]" />
+               <input type="submit" />
+            </form>
+         </div>
+
+
+
+         <div id="fileReq">
+            <div>Receive file</div>
+            <input type="button" value="Receive" onclick="receiveFile()"></input>
+            <span id="statusMessage" style="display: none;"></span>
+            <a id="downloadLink" style="display: none;" download>Download File</a>
+        </div>
+
+
+
+
+         <br>
+         <br>
+         <div id="media_control">
+            <div>Music control</div>
+            <div>
+               <input value="⏪" command="previous" type="button" class="media_button" />
+               <input value="⏯️" command="play_pause" type="button" class="media_button" />
+               <input value="⏹️" command="stop" class="media_button" type="button" />
+               <input value="⏩" command="next" type="button" class="media_button" />
+            </div>
+            <div id="current_song"></div>
+         </div>
+         <br>
+         %HttpSendNoti
+      </div>
+   </body>
+   <script src="script.js"></script>
+</html>
