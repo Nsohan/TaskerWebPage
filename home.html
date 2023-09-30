@@ -98,7 +98,7 @@
       </div>
       <div  class="hidden otherItemsContainer">
          <div id="taskervariable">
-            
+
             <div>
                <div id="variable_value">Value will appear here/div>
                </div>
@@ -155,14 +155,18 @@
 
       <br>
       <div class="File_Send_receive">
+
          <div id="sendfile">
-            <form enctype="multipart/form-data" action="/files?location=Download&redirect=file/Tasker/WebPage/home.html" method="post">
-               <label for="file_open">Select a file to send 📤</label>
-               <br>
-               <input type="file" multiple id="file_open" name="file[]" />
-               <input type="submit" class="btn" />
+            <form enctype="multipart/form-data">
+              <label for="file_open">Select a file to send</label>
+              <br>
+              <input type="file" multiple id="file_open" />
+              <input type="button" value="Upload" onclick="uploadFiles()" />
+              <div id="uploadStatus"></div>
             </form>
-         </div>
+          </div>
+
+
          <br>
          <div id="fileReq">
             <div>Receive file 📥</div>

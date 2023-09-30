@@ -5,7 +5,6 @@ const fetchGetText = async url => {
 
 
 //login
-
 function toggleLogin() {
   var loginPop = document.getElementById("loginPop");
   var loginContainer = document.getElementById("loginContainer");
@@ -42,13 +41,9 @@ const submitLogin = async (event) => {
           // Do something with the element, for example:
           element.style.display = "block"; // Show the other items container
       }
-
-
       // Clear the username and password fields
       document.querySelector("#username").value = "";
       document.querySelector("#password").value = "";
-
-
     } else if (responseText.includes("failed")) {
       // If the response contains "failed," display an error message
       alert("Login failed. Please try again.");
@@ -93,8 +88,6 @@ const submitLogin = async (event) => {
         ClipTextElement.value = "";
       }
 
-
-
       //get run autovoice command
       const runTextElement = document.querySelector("#runtext");
       runTextElement.onkeydown = e =>{
@@ -118,6 +111,57 @@ const submitLogin = async (event) => {
       const sendSay = command => fetch(`/command?say=${encodeURIComponent(command)}`);
       const sendShutUp = command => fetch(`/command?shut=${encodeURIComponent(command)}`);
       const shutUp = () => sendShutUp("ShutUp");
+
+
+      //send file to phone
+      async function uploadFiles() {
+        const fileInput = document.getElementById('file_open');
+        const uploadStatus = document.getElementById('uploadStatus');
+
+        // Check if any files were selected
+        if (fileInput.files.length === 0) {
+          uploadStatus.innerHTML = 'Please select one or more files.';
+          return;
+        }
+
+        // Initialize progress counter
+        let uploadedCount = 0;
+
+        // Iterate through each selected file and send it to the server
+        for (const file of fileInput.files) {
+          const formData = new FormData();
+          formData.append('file', file);
+
+          try {
+            const response = await fetch('/files', {
+              method: 'POST',
+              body: formData,
+            });
+
+            if (response.ok) {
+              uploadedCount++;
+              updateUploadStatus(uploadedCount, fileInput.files.length, file.name);
+            } else {
+              updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
+            }
+          } catch (error) {
+            console.error(`An error occurred while uploading file "${file.name}":`, error);
+            updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
+          }
+        }
+      }
+
+      function updateUploadStatus(uploadedCount, totalCount, fileName, isError = false) {
+        const uploadStatus = document.getElementById('uploadStatus');
+        if (isError) {
+          uploadStatus.innerHTML += `(Error) Failed to upload file "${fileName}"<br>`;
+        } else if (uploadedCount === totalCount) {
+          uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) All files uploaded successfully.<br>`;
+        } else {
+          uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) Uploading "${fileName}"<br>`;
+        }
+      }
+
 
 
       //receive file req
