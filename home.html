@@ -145,7 +145,7 @@
       <div class="flex space-x-3">
 
          <div id="ClipWrite">
-            <textarea id="ClipText" placeholder="Write text to set 📋 Clip on phone " name="message" rows="3" cols="19" class="rounded"></textarea>
+            <textarea id="ClipText" placeholder="Get/Set📋 Clip on phone " name="message" rows="3" cols="19" class="rounded"></textarea>
          </div>
 
          <div id="run" class="hidden otherItemsContainer">
@@ -158,10 +158,10 @@
 
          <div id="sendfile">
             <form enctype="multipart/form-data">
-              <label for="file_open">Select a file to send</label>
+              <label for="file_open">Select files to send</label>
               <br>
               <input type="file" multiple id="file_open" />
-              <input type="button" value="Upload" onclick="uploadFiles()" />
+              <input type="button" class="btn" value="Send" onclick="uploadFiles()" />
               <div id="uploadStatus"></div>
             </form>
           </div>
@@ -169,10 +169,10 @@
 
          <br>
          <div id="fileReq">
-            <div>Receive file 📥</div>
-            <input type="button" value="Request" class="btn" onclick="receiveFile()"></input>
+            
+            <input type="button" value="File Request" class="btn" onclick="receiveFile()"></input>
             <span id="statusMessage" style="display: none;"></span>
-            <a class="btn" id="downloadLink" style="display: none;" download>Download File</a>
+            <a  id="downloadLink" style="display: none;" download>Download File</a>
          </div>
          <br>
       </div>

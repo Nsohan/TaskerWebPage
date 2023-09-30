@@ -114,53 +114,58 @@ const submitLogin = async (event) => {
 
 
       //send file to phone
-      async function uploadFiles() {
-        const fileInput = document.getElementById('file_open');
-        const uploadStatus = document.getElementById('uploadStatus');
+       async function uploadFiles() {
+      const fileInput = document.getElementById('file_open');
+      const uploadStatus = document.getElementById('uploadStatus');
 
-        // Check if any files were selected
-        if (fileInput.files.length === 0) {
-          uploadStatus.innerHTML = 'Please select one or more files.';
-          return;
-        }
+      // Check if any files were selected
+      if (fileInput.files.length === 0) {
+        uploadStatus.innerHTML = 'Please select one or more files.';
+        return;
+      }
 
-        // Initialize progress counter
-        let uploadedCount = 0;
+      // Initialize progress counter
+      let uploadedCount = 0;
 
-        // Iterate through each selected file and send it to the server
-        for (const file of fileInput.files) {
-          const formData = new FormData();
-          formData.append('file', file);
+      // Iterate through each selected file and send it to the server
+      for (const file of fileInput.files) {
+        const formData = new FormData();
+        formData.append('file', file);
 
-          try {
-            const response = await fetch('/files', {
-              method: 'POST',
-              body: formData,
-            });
+        try {
+          const response = await fetch('/files', {
+            method: 'POST',
+            body: formData,
+          });
 
-            if (response.ok) {
-              uploadedCount++;
-              updateUploadStatus(uploadedCount, fileInput.files.length, file.name);
-            } else {
-              updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
-            }
-          } catch (error) {
-            console.error(`An error occurred while uploading file "${file.name}":`, error);
+          if (response.ok) {
+            uploadedCount++;
+            updateUploadStatus(uploadedCount, fileInput.files.length, file.name);
+          } else {
             updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
           }
+        } catch (error) {
+          console.error(`An error occurred while uploading file "${file.name}":`, error);
+          updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
         }
       }
+    }
 
-      function updateUploadStatus(uploadedCount, totalCount, fileName, isError = false) {
-        const uploadStatus = document.getElementById('uploadStatus');
-        if (isError) {
-          uploadStatus.innerHTML += `(Error) Failed to upload file "${fileName}"<br>`;
-        } else if (uploadedCount === totalCount) {
-          uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) All files uploaded successfully.<br>`;
-        } else {
-          uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) Uploading "${fileName}"<br>`;
-        }
+    function updateUploadStatus(uploadedCount, totalCount, fileName, isError = false) {
+      const uploadStatus = document.getElementById('uploadStatus');
+      if (isError) {
+        uploadStatus.innerHTML += `(Error) Failed to upload file "${fileName}"<br>`;
+      } else if (uploadedCount === totalCount) {
+        uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) All files uploaded successfully.<br>`;
+      } else {
+        uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) Uploading "${fileName}"<br>`;
       }
+    }
+
+
+
+
+
 
 
 
@@ -170,7 +175,7 @@ const submitLogin = async (event) => {
           // Display the status message
           const statusMessage = document.getElementById("statusMessage");
           statusMessage.style.display = "block";
-          statusMessage.textContent = "Request sent";
+          statusMessage.textContent = "Request sent. Please wait";
 
           sendReceiveReq("sendFile")
               .then(response => {
