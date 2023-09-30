@@ -5,6 +5,15 @@ const fetchGetText = async url => {
 
 
 //login
+
+function toggleLogin() {
+  var loginPop = document.getElementById("loginPop");
+  var loginContainer = document.getElementById("loginContainer");
+
+  loginPop.style.display = "none"; // Hide loginPop
+  loginContainer.style.display = "block"; // Show loginContainer
+}
+
 const submitLogin = async (event) => {
     event.preventDefault();
     const username = document.querySelector("#username").value;
@@ -23,13 +32,17 @@ const submitLogin = async (event) => {
     const responseText = await response.text(); // Get the text content of the response
 
     if (responseText.includes("Success")) {
-
-
         const loginContainer = document.querySelector("#loginContainer");
-        const otherItemsContainer = document.querySelector("#otherItemsContainer");
-
         loginContainer.style.display = "none"; // Hide the login container
-        otherItemsContainer.style.display = "block"; // Show the other items container
+
+        const otherItemsContainer = document.getElementsByClassName("otherItemsContainer");
+         // Loop through the elements and do something with each one
+         for (let i = 0; i < otherItemsContainer.length; i++) {
+          const element = otherItemsContainer[i];
+          // Do something with the element, for example:
+          element.style.display = "block"; // Show the other items container
+      }
+
 
       // Clear the username and password fields
       document.querySelector("#username").value = "";
@@ -51,14 +64,12 @@ const submitLogin = async (event) => {
       const writeTextElement = document.querySelector("#text");
       writeTextElement.onkeydown = e =>{
       	if(e.keyCode != 13) return;
-
       	sendWrite(writeTextElement.value);
       }
       writeTextElement.onkeyup = e =>{
       	if(e.keyCode != 13) return;
       	writeTextElement.value = "";
       }
-
 
       //get say write text
       const sayTextElement = document.querySelector("#saytext");
@@ -71,12 +82,23 @@ const submitLogin = async (event) => {
       	sayTextElement.value = "";
       }
 
+      //get clip write text
+      const ClipTextElement = document.querySelector("#ClipText");
+      ClipTextElement.onkeydown = e =>{
+        if(e.keyCode != 13) return;
+        sendClipText(ClipTextElement.value);
+       }
+       ClipTextElement.onkeyup = e =>{
+        if(e.keyCode != 13) return;
+        ClipTextElement.value = "";
+      }
+
+
 
       //get run autovoice command
       const runTextElement = document.querySelector("#runtext");
       runTextElement.onkeydown = e =>{
       	if(e.keyCode != 13) return;
-
       	sendRun(runTextElement.value);
       }
       runTextElement.onkeyup = e =>{
@@ -87,18 +109,13 @@ const submitLogin = async (event) => {
 
       // send all command to tasker
 
-      const sendFlash = command => fetch(`/command?flash=${encodeURIComponent(command)}`)
+      const sayHello = () => sendSay("Hello everyone!");
 
       const sendWrite = command => fetch(`/command?write=${encodeURIComponent(command)}`)
-
-
+      const sendClipText = command => fetch(`/command?clip=${encodeURIComponent(command)}`)
       const sendRun = command => fetch(`/command?run=${encodeURIComponent(command)}`)
-
-
       const sendWriteToSay = command => fetch(`/command?saytext=${encodeURIComponent(command)}`)
-
       const sendSay = command => fetch(`/command?say=${encodeURIComponent(command)}`);
-
       const sendShutUp = command => fetch(`/command?shut=${encodeURIComponent(command)}`);
       const shutUp = () => sendShutUp("ShutUp");
 
@@ -139,8 +156,6 @@ const submitLogin = async (event) => {
       };
 
 
-      const flashhello = () => sendFlash("hello from here")
-      const sayHello = () => sendSay("Hello everyone!");
 
 
 const getVariableValue = async (name) => await fetchGetText(`/variable?name=${name}`);
@@ -162,6 +177,8 @@ const fetchVariableValue = async () => {
 
 // Call the fetchVariableValue function when the page loads
 window.addEventListener("load", fetchVariableValue);
+
+
       const mediaVolumeElement = document.querySelector("#media_volume");
       document.querySelectorAll(".media_button").forEach(button => {
       	const command = button.getAttribute("command");
@@ -171,11 +188,30 @@ window.addEventListener("load", fetchVariableValue);
       });
 
 
+
+// Updating clipboard from phone to webpage
+const updateClipboard = async () => {
+  try {
+    const clip = await fetchGetText("/clipboard");
+    document.querySelector("#ClipText").value = clip;
+  } catch (error) {
+    // Handle any errors that occur during the fetch request
+    console.error("Error fetching clipboard:", error);
+  }
+};
+
+// Call updateClipboard() once when the page is loaded
+window.addEventListener("load", () => {
+  updateClipboard();
+});
+
+
+      //updating current playing song
       const updatePlayingSong = async () => {
       	try{
       		const song = await fetchGetText("/currentsong");
       		document.querySelector("#current_song").innerText = song;
-      		notify(song);
+
       	}finally{
       		updatePlayingSong();
       	}

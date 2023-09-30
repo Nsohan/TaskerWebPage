@@ -3,15 +3,22 @@
    <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      <title>Sohans phone</title>
+      <title>Sohan's phone</title>
       <style type="text/css">
          body {
+         padding: 2px;
          background-color: black;
          color: white;
          width: 100%;
          }
          .hidden {
          display: none;
+         }
+         .loginContainer_mb{
+         margin-bottom: 15px;
+         }
+         .mb{
+         margin-bottom: 10px;
          }
          .container {
          background-color: white;
@@ -26,10 +33,46 @@
          }
          #media_control{
          }
+         .box{
+         height: 22px;
+         padding-left: 10px;
+         border-style: none;
+         }
+         .btn{
+         height: 23px;
+         padding: 0px 7px;
+         box-shadow: 1px 1px 7px #ff0000;
+         border-radius: 5px;
+         border-style: none;
+         background-color: rgb(255, 208, 0);
+         cursor: pointer;
+         color: black;
+         }
+         .btn:hover{
+         background-color: #ff6600;
+         transition-duration: 500ms;
+         }
+         .flex{
+         display: flex;
+         }
+         .space-x-3 > :not([hidden]) ~ :not([hidden]) {
+         --tw-space-x-reverse: 0;
+         margin-right: calc(0.50rem/* 12px */ * var(--tw-space-x-reverse));
+         margin-left: calc(0.50rem/* 12px */ * calc(1 - var(--tw-space-x-reverse)));
+         }
+         .rounded{
+         border-radius: 7px;
+         border-style: none;
+         border: 1px orangered solid;
+         }
+         .mt-2{
+         margin-top: 10px;
+         }
          .media_button{
          background: transparent;
          border: none;
-         font-size: 50px;
+         cursor: pointer;
+         font-size: 40px;
          margin: 0px;
          padding: 0px;
          }
@@ -39,83 +82,99 @@
          }
       </style>
    </head>
-
    <body>
-
-	<div id="loginContainer">
-		<h1 class="heading">Login</h1>
-		<form action="/login" method="post" onsubmit="submitLogin(event)">
-		   <label for="username">Username:</label>
-		   <input type="text" id="username" name="username" required><br><br>
-		   <label for="password">Password:</label>
-		   <input type="password" id="password" name="password" required><br><br>
-		   <input type="submit" value="Login">
-		</form>
-	 </div>
-
-
-      <div id="otherItemsContainer" class="hidden">
+      <div>
+         <div id="loginPop" class="mb">
+            <input type="button" value="Login for more features" class="btn" onclick="toggleLogin()">
+         </div>
+         <div id="loginContainer" class="loginContainer_mb hidden">
+            <h1 class="heading">Login</h1>
+            <form action="/login" method="post" onsubmit="submitLogin(event)">
+               <input type="text" id="username" name="username" required class="rounded box" placeholder="Username"><br><br>
+               <input type="password" id="password" name="password" required  class="rounded box" placeholder="Password"><br><br>
+               <input type="submit" value="Login" class="btn">
+            </form>
+         </div>
+      </div>
+      <div  class="hidden otherItemsContainer">
          <div id="taskervariable">
-            <div>Phone status</div>
+            
             <div>
                <div id="variable_value">Value will appear here/div>
                </div>
             </div>
          </div>
          <br>
-
-         <div id="say">
-            <div>Say Example</div>
-            <input type="button" value="Say Hello to Phone" onclick="sayHello()"></input>
+         <div class="flex space-x-3 ">
+            <div id="say">
+               <input type="button" class="btn" value="Hello to Phone" onclick="sayHello()"></input>
+            </div>
+            <div id="shut">
+               <input type="button" class="btn" value= "Shut up" onclick="shutUp()"></input>
+            </div>
+            <div id="lock">
+               <input type="button" class="btn" value= "Lock" onclick="lock()"></input>
+            </div>
+            <div id="unlock">
+               <input type="button" class="btn" value= "Unlock" onclick="unlock()"></input>
+            </div>
          </div>
-
-         <div id="shut">
-            <div>Shut up</div>
-            <input type="button" value= "Shut up" onclick="shutUp()"></input>
+         <div class="flex space-x-3 mt-2">
+            <div id="ScreenLock">
+               <input type="button" class="btn" value="Screen Lock" onclick="ScreenLock()"></input>
+            </div>
+            <div id="Reboot">
+               <input type="button" class="btn" value= "Reboot" onclick="Reboot()"></input>
+            </div>
+            <div id="Siren">
+               <input type="button" class="btn" value= "Siren" onclick="Siren()"></input>
+            </div>
          </div>
-
          <br>
-         <div id="write">
-            <div>Write Text ✍️ Example</div>
-            <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="30"></textarea>
+         <div class="flex space-x-3">
+            <div id="write">
+               <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="19" class="rounded"></textarea>
+            </div>
+            <br>
+            <div id="SayWrite">
+               <textarea id="saytext" placeholder="Write text to say 🔊 on phone" name="message" rows="3" cols="19" class="rounded"></textarea>
+            </div>
          </div>
-         <br>
-         <div id="SayWrite">
-            <div>Write Text to Say 🔊 on Phone</div>
-            <textarea id="saytext" placeholder="Write text to say 🔊 on phone" name="message" rows="3" cols="30"></textarea>
-         </div>
-         <br>
-         <div id="run">
-            <div>Write Autovoice Command</div>
-            <textarea id="runtext" placeholder="Write command to run in your phone" name="message" rows="2" cols="30"></textarea>
-         </div>
-         <br>
+      </div>
 
-         <div id="openfile">
+      <div class="flex space-x-3">
+
+         <div id="ClipWrite">
+            <textarea id="ClipText" placeholder="Write text to set 📋 Clip on phone " name="message" rows="3" cols="19" class="rounded"></textarea>
+         </div>
+
+         <div id="run" class="hidden otherItemsContainer">
+            <textarea class=" rounded " id="runtext" placeholder="Write AutoVoice ⚙ Command" name="message" rows="3" cols="19" ></textarea>
+         </div>
+      </div>
+
+      <br>
+      <div class="File_Send_receive">
+         <div id="sendfile">
             <form enctype="multipart/form-data" action="/files?location=Download&redirect=file/Tasker/WebPage/home.html" method="post">
-               <label for="file_open">Select a file to send</label>
+               <label for="file_open">Select a file to send 📤</label>
                <br>
                <input type="file" multiple id="file_open" name="file[]" />
-               <input type="submit" />
+               <input type="submit" class="btn" />
             </form>
          </div>
-
-
-
+         <br>
          <div id="fileReq">
-            <div>Receive file</div>
-            <input type="button" value="Receive" onclick="receiveFile()"></input>
+            <div>Receive file 📥</div>
+            <input type="button" value="Request" class="btn" onclick="receiveFile()"></input>
             <span id="statusMessage" style="display: none;"></span>
-            <a id="downloadLink" style="display: none;" download>Download File</a>
-        </div>
-
-
-
-
+            <a class="btn" id="downloadLink" style="display: none;" download>Download File</a>
+         </div>
          <br>
-         <br>
+      </div>
+      <div  class="hidden otherItemsContainer ">
          <div id="media_control">
-            <div>Music control</div>
+            <div>Music control 🎶</div>
             <div>
                <input value="⏪" command="previous" type="button" class="media_button" />
                <input value="⏯️" command="play_pause" type="button" class="media_button" />
