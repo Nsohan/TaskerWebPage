@@ -52,6 +52,22 @@
          background-color: #ff6600;
          transition-duration: 500ms;
          }
+         .options{
+         margin: 10px 0;
+         
+         }
+         input[type="file"] {
+         display: none;
+         }
+         .file-upload {
+         border-radius: 7px;
+         border-style: none;
+         border: 1px orangered solid;
+         display: inline-block;
+         margin: 10px 0;
+         padding: 2px 5px;
+         cursor: pointer;
+         }
          .flex{
          display: flex;
          }
@@ -67,6 +83,9 @@
          }
          .mt-2{
          margin-top: 10px;
+         }
+         .mb-5{
+         margin-bottom: 5px;
          }
          .media_button{
          background: transparent;
@@ -97,13 +116,13 @@
          </div>
       </div>
       <div  class="hidden otherItemsContainer">
-         <div id="taskervariable">
 
+         <div id="taskervariable">
             <div>
-               <div id="variable_value">Value will appear here/div>
-               </div>
+               <div id="variable_value">Value will appear here </div>
             </div>
          </div>
+
          <br>
          <div class="flex space-x-3 ">
             <div id="say">
@@ -130,7 +149,12 @@
                <input type="button" class="btn" value= "Siren" onclick="Siren()"></input>
             </div>
          </div>
-         <br>
+
+         	
+         <select id="tasks" class="options btn">
+         		
+         	<option value="">--Choose Task to run--</option> </select>
+         
          <div class="flex space-x-3">
             <div id="write">
                <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="19" class="rounded"></textarea>
@@ -141,35 +165,32 @@
             </div>
          </div>
       </div>
-
       <div class="flex space-x-3">
-
          <div id="ClipWrite">
             <textarea id="ClipText" placeholder="Get/Set📋 Clip on phone " name="message" rows="3" cols="19" class="rounded"></textarea>
          </div>
-
          <div id="run" class="hidden otherItemsContainer">
             <textarea class=" rounded " id="runtext" placeholder="Write AutoVoice ⚙ Command" name="message" rows="3" cols="19" ></textarea>
          </div>
       </div>
-
-      <br>
+      
       <div class="File_Send_receive">
+         
+      		
+<div id="sendfile">
+    <form enctype="multipart/form-data">
+        <label class="file-upload" id="file-upload-label">
+            <input type="file" multiple id="file_open" onchange="updateFileLabel()" />
+            Select files to send
+        </label>
+        <input type="button" class="btn" value="Send" onclick="uploadFiles()" />
+        <div id="uploadStatus" class="mb-5"></div>
+    </form>
+</div>
 
-         <div id="sendfile">
-            <form enctype="multipart/form-data">
-              <label for="file_open">Select files to send</label>
-              <br>
-              <input type="file" multiple id="file_open" />
-              <input type="button" class="btn" value="Send" onclick="uploadFiles()" />
-              <div id="uploadStatus"></div>
-            </form>
-          </div>
 
-
-         <br>
+         
          <div id="fileReq">
-            
             <input type="button" value="File Request" class="btn" onclick="receiveFile()"></input>
             <span id="statusMessage" style="display: none;"></span>
             <a  id="downloadLink" style="display: none;" download>Download File</a>
@@ -188,8 +209,16 @@
             <div id="current_song"></div>
          </div>
          <br>
-         %HttpSendNoti
+
+         <div id="phnNoti">
+            <div>
+               <div id="phnNotify">Phone Notifications will appear here </div>
+            </div>
+         </div>
+
       </div>
+
    </body>
    <script src="script.js"></script>
+</html>
 </html>

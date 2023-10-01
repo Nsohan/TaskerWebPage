@@ -54,7 +54,6 @@ const submitLogin = async (event) => {
   }
 
 
-
       //Get write text
       const writeTextElement = document.querySelector("#text");
       writeTextElement.onkeydown = e =>{
@@ -113,59 +112,41 @@ const submitLogin = async (event) => {
       const shutUp = () => sendShutUp("ShutUp");
 
 
+      //get selected file number
+      function updateFileLabel() {
+    const input = document.getElementById('file_open');
+    const fileCount = input.files.length;
+    const uploadStatus = document.getElementById('uploadStatus');
+    uploadStatus.textContent = fileCount + ' item(s) selected';
+}
       //send file to phone
-       async function uploadFiles() {
+        async function uploadFiles() {
       const fileInput = document.getElementById('file_open');
       const uploadStatus = document.getElementById('uploadStatus');
-
-      // Check if any files were selected
       if (fileInput.files.length === 0) {
         uploadStatus.innerHTML = 'Please select one or more files.';
         return;
       }
-
-      // Initialize progress counter
       let uploadedCount = 0;
-
-      // Iterate through each selected file and send it to the server
       for (const file of fileInput.files) {
         const formData = new FormData();
         formData.append('file', file);
-
+        uploadStatus.innerHTML = `(${uploadedCount + 1}-${fileInput.files.length}) Uploading "${file.name}"...<br>`;
         try {
           const response = await fetch('/files', {
             method: 'POST',
             body: formData,
           });
-
           if (response.ok) {
             uploadedCount++;
-            updateUploadStatus(uploadedCount, fileInput.files.length, file.name);
-          } else {
-            updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
           }
         } catch (error) {
           console.error(`An error occurred while uploading file "${file.name}":`, error);
-          updateUploadStatus(uploadedCount, fileInput.files.length, file.name, true);
         }
       }
+      // Display the final upload status
+      uploadStatus.innerHTML = `(${uploadedCount}-${fileInput.files.length}) All files uploaded successfully.<br>`;
     }
-
-    function updateUploadStatus(uploadedCount, totalCount, fileName, isError = false) {
-      const uploadStatus = document.getElementById('uploadStatus');
-      if (isError) {
-        uploadStatus.innerHTML += `(Error) Failed to upload file "${fileName}"<br>`;
-      } else if (uploadedCount === totalCount) {
-        uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) All files uploaded successfully.<br>`;
-      } else {
-        uploadStatus.innerHTML = `(${uploadedCount}-${totalCount}) Uploading "${fileName}"<br>`;
-      }
-    }
-
-
-
-
-
 
 
 
@@ -193,7 +174,6 @@ const submitLogin = async (event) => {
               .then(blob => {
                   // Create a blob URL for the received file
                   const blobUrl = window.URL.createObjectURL(blob);
-
                   // Set the download link's href and display it
                   const downloadLink = document.getElementById("downloadLink");
                   downloadLink.href = blobUrl;
@@ -206,13 +186,11 @@ const submitLogin = async (event) => {
 
 
 
-
+//get variable value
 const getVariableValue = async (name) => await fetchGetText(`/variable?name=${name}`);
 const variableValueElement = document.querySelector("#variable_value");
-
 // Set the static variable name here
 const staticVariableName = "%BATT_Profile";
-
 // Fetch and display the variable value
 const fetchVariableValue = async () => {
     variableValueElement.innerText = "Loading...";
@@ -223,18 +201,25 @@ const fetchVariableValue = async () => {
     const text = await getVariableValue(name);
     variableValueElement.innerText = text;
 }
-
 // Call the fetchVariableValue function when the page loads
 window.addEventListener("load", fetchVariableValue);
 
 
-      const mediaVolumeElement = document.querySelector("#media_volume");
-      document.querySelectorAll(".media_button").forEach(button => {
-      	const command = button.getAttribute("command");
-      	button.onclick = async () => {
-      		mediaVolumeElement.innerText = await fetchGetText(`/mediacontrol?command=${command}`);
-      	}
-      });
+
+
+
+
+
+//media control
+const mediaVolumeElement = document.querySelector("#media_volume");
+document.querySelectorAll(".media_button").forEach(button => {
+const command = button.getAttribute("command");
+button.onclick = async () => {
+mediaVolumeElement.innerText = await fetchGetText(`/mediacontrol?command=${command}`);
+}
+});
+
+
 
 
 
@@ -248,21 +233,32 @@ const updateClipboard = async () => {
     console.error("Error fetching clipboard:", error);
   }
 };
-
 // Call updateClipboard() once when the page is loaded
-window.addEventListener("load", () => {
-  updateClipboard();
-});
+window.addEventListener("load", updateClipboard);
 
 
-      //updating current playing song
-      const updatePlayingSong = async () => {
-      	try{
-      		const song = await fetchGetText("/currentsong");
-      		document.querySelector("#current_song").innerText = song;
+//updating current playing song
+const updatePlayingSong = async () => {
+    try{
+     const song = await fetchGetText("/currentsong");
+    document.querySelector("#current_song").innerText = song;
 
-      	}finally{
-      		updatePlayingSong();
-      	}
+    }finally{
+     updatePlayingSong();
+     }
       }
-      updatePlayingSong();
+updatePlayingSong();
+
+
+
+
+//get Phone Notifications
+const getNotify = async (name) => await fetchGetText(`/notification?noti=${name}`);
+const NotifyValueElement = document.querySelector("#phnNotify");
+const Notify = "notify";
+const fetchNotifyValue = async () => {
+  NotifyValueElement.innerHTML = "Loading...";
+  const text = await getNotify(Notify);
+  NotifyValueElement.innerHTML = text;
+}
+window.addEventListener("load", fetchNotifyValue);
