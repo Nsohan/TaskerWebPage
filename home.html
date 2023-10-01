@@ -1,224 +1,149 @@
 <!DOCTYPE html>
 <html>
-   <head>
-      <meta charset="UTF-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-      <title>Sohan's phone</title>
-      <style type="text/css">
-         body {
-         padding: 2px;
-         background-color: black;
-         color: white;
-         width: 100%;
-         }
-         .hidden {
-         display: none;
-         }
-         .loginContainer_mb{
-         margin-bottom: 15px;
-         }
-         .mb{
-         margin-bottom: 10px;
-         }
-         .container {
-         background-color: white;
-         color: black;
-         width: 700px;
-         border-radius: 20px;
-         border: 2px solid black;
-         padding: 2px;
-         }
-         .heading{
-         color: red;
-         }
-         #media_control{
-         }
-         .box{
-         height: 22px;
-         padding-left: 10px;
-         border-style: none;
-         }
-         .btn{
-         height: 23px;
-         padding: 0px 7px;
-         box-shadow: 1px 1px 7px #ff0000;
-         border-radius: 5px;
-         border-style: none;
-         background-color: rgb(255, 208, 0);
-         cursor: pointer;
-         color: black;
-         }
-         .btn:hover{
-         background-color: #ff6600;
-         transition-duration: 500ms;
-         }
-         .options{
-         margin: 10px 0;
-         
-         }
-         input[type="file"] {
-         display: none;
-         }
-         .file-upload {
-         border-radius: 7px;
-         border-style: none;
-         border: 1px orangered solid;
-         display: inline-block;
-         margin: 10px 0;
-         padding: 2px 5px;
-         cursor: pointer;
-         }
-         .flex{
-         display: flex;
-         }
-         .space-x-3 > :not([hidden]) ~ :not([hidden]) {
-         --tw-space-x-reverse: 0;
-         margin-right: calc(0.50rem/* 12px */ * var(--tw-space-x-reverse));
-         margin-left: calc(0.50rem/* 12px */ * calc(1 - var(--tw-space-x-reverse)));
-         }
-         .rounded{
-         border-radius: 7px;
-         border-style: none;
-         border: 1px orangered solid;
-         }
-         .mt-2{
-         margin-top: 10px;
-         }
-         .mb-5{
-         margin-bottom: 5px;
-         }
-         .media_button{
-         background: transparent;
-         border: none;
-         cursor: pointer;
-         font-size: 40px;
-         margin: 0px;
-         padding: 0px;
-         }
-         #media_volume{
-         font-size: 50px;
-         font-weight: bold;
-         }
-      </style>
-   </head>
-   <body>
-      <div>
-         <div id="loginPop" class="mb">
-            <input type="button" value="Login for more features" class="btn" onclick="toggleLogin()">
-         </div>
-         <div id="loginContainer" class="loginContainer_mb hidden">
-            <h1 class="heading">Login</h1>
-            <form action="/login" method="post" onsubmit="submitLogin(event)">
-               <input type="text" id="username" name="username" required class="rounded box" placeholder="Username"><br><br>
-               <input type="password" id="password" name="password" required  class="rounded box" placeholder="Password"><br><br>
-               <input type="submit" value="Login" class="btn">
-            </form>
-         </div>
+
+<head>
+   <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+   <title>Sohan's phone</title>
+   <link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+   <div>
+      <div id="loginPop" class="mb">
+         <input type="button" value="Login for more features" class="btn" onclick="toggleLogin()">
       </div>
-      <div  class="hidden otherItemsContainer">
+      <div id="loginContainer" class="loginContainer_mb hidden">
+         <h1 class="heading">Login</h1>
+         <form action="/login" method="post" onsubmit="submitLogin(event)">
+            <input type="text" id="username" name="username" required class="rounded box"
+               placeholder="Username"><br><br>
+            <input type="password" id="password" name="password" required class="rounded box"
+               placeholder="Password"><br><br>
+            <input type="submit" value="Login" class="btn">
+         </form>
+      </div>
+   </div>
+   <div class="hidden otherItemsContainer">
 
-         <div id="taskervariable">
-            <div>
-               <div id="variable_value">Value will appear here </div>
-            </div>
+      <div id="taskervariable">
+         <div>
+            <div id="variable_value">Value will appear here </div>
          </div>
-
          <br>
-         <div class="flex space-x-3 ">
-            <div id="say">
-               <input type="button" class="btn" value="Hello to Phone" onclick="sayHello()"></input>
-            </div>
-            <div id="shut">
-               <input type="button" class="btn" value= "Shut up" onclick="shutUp()"></input>
-            </div>
-            <div id="lock">
-               <input type="button" class="btn" value= "Lock" onclick="lock()"></input>
-            </div>
-            <div id="unlock">
-               <input type="button" class="btn" value= "Unlock" onclick="unlock()"></input>
-            </div>
-         </div>
-         <div class="flex space-x-3 mt-2">
-            <div id="ScreenLock">
-               <input type="button" class="btn" value="Screen Lock" onclick="ScreenLock()"></input>
-            </div>
-            <div id="Reboot">
-               <input type="button" class="btn" value= "Reboot" onclick="Reboot()"></input>
-            </div>
-            <div id="Siren">
-               <input type="button" class="btn" value= "Siren" onclick="Siren()"></input>
-            </div>
+
+         <div class="">
+            <div id="current_app">Current opened App name will appear here </div>
+            <input type="button" class="btn" value="Kill App" onclick="KillApp()"></input>
          </div>
 
-         	
-         <select id="tasks" class="options btn">
-         		
-         	<option value="">--Choose Task to run--</option> </select>
-         
-         <div class="flex space-x-3">
-            <div id="write">
-               <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="19" class="rounded"></textarea>
-            </div>
-            <br>
-            <div id="SayWrite">
-               <textarea id="saytext" placeholder="Write text to say 🔊 on phone" name="message" rows="3" cols="19" class="rounded"></textarea>
-            </div>
+      </div>
+
+      <br>
+      <div class="flex space-x-3 ">
+         <div id="say">
+            <input type="button" class="btn" value="Hello to Phone" onclick="sayHello()"></input>
+         </div>
+         <div id="shut">
+            <input type="button" class="btn" value="Shut up" onclick="shutUp()"></input>
+         </div>
+         <div id="lock">
+            <input type="button" class="btn" value="Lock" onclick="lock()"></input>
+         </div>
+         <div id="unlock">
+            <input type="button" class="btn" value="Unlock" onclick="unlock()"></input>
          </div>
       </div>
+      <div class="flex space-x-3 mt-2">
+         <div id="ScreenLock">
+            <input type="button" class="btn" value="Screen Lock" onclick="ScreenLock()"></input>
+         </div>
+         <div id="Reboot">
+            <input type="button" class="btn" value="Reboot" onclick="Reboot()"></input>
+         </div>
+         <div id="Siren">
+            <input type="button" class="btn" value="Siren" onclick="Siren()"></input>
+         </div>
+      </div>
+
+
+      <select id="tasks" class="options btn" onchange="sendSelectedTask()">
+         <option value="">--Choose Task to run--</option>
+      </select>
+
+
+
       <div class="flex space-x-3">
-         <div id="ClipWrite">
-            <textarea id="ClipText" placeholder="Get/Set📋 Clip on phone " name="message" rows="3" cols="19" class="rounded"></textarea>
-         </div>
-         <div id="run" class="hidden otherItemsContainer">
-            <textarea class=" rounded " id="runtext" placeholder="Write AutoVoice ⚙ Command" name="message" rows="3" cols="19" ></textarea>
-         </div>
-      </div>
-      
-      <div class="File_Send_receive">
-         
-      		
-<div id="sendfile">
-    <form enctype="multipart/form-data">
-        <label class="file-upload" id="file-upload-label">
-            <input type="file" multiple id="file_open" onchange="updateFileLabel()" />
-            Select files to send
-        </label>
-        <input type="button" class="btn" value="Send" onclick="uploadFiles()" />
-        <div id="uploadStatus" class="mb-5"></div>
-    </form>
-</div>
-
-
-         
-         <div id="fileReq">
-            <input type="button" value="File Request" class="btn" onclick="receiveFile()"></input>
-            <span id="statusMessage" style="display: none;"></span>
-            <a  id="downloadLink" style="display: none;" download>Download File</a>
+         <div id="write">
+            <textarea id="text" placeholder="Write some ✍️text on the phone" name="message" rows="3" cols="19"
+               class="rounded"></textarea>
          </div>
          <br>
-      </div>
-      <div  class="hidden otherItemsContainer ">
-         <div id="media_control">
-            <div>Music control 🎶</div>
-            <div>
-               <input value="⏪" command="previous" type="button" class="media_button" />
-               <input value="⏯️" command="play_pause" type="button" class="media_button" />
-               <input value="⏹️" command="stop" class="media_button" type="button" />
-               <input value="⏩" command="next" type="button" class="media_button" />
-            </div>
-            <div id="current_song"></div>
+         <div id="SayWrite">
+            <textarea id="saytext" placeholder="Write text to say 🔊 on phone" name="message" rows="3" cols="19"
+               class="rounded"></textarea>
          </div>
-         <br>
+      </div>
+   </div>
+   <div class="flex space-x-3">
+      <div id="ClipWrite">
+         <textarea id="ClipText" placeholder="Get/Set📋 Clip on phone " name="message" rows="3" cols="19"
+            class="rounded"></textarea>
+      </div>
+      <div id="run" class="hidden otherItemsContainer">
+         <textarea class=" rounded " id="runtext" placeholder="Write AutoVoice ⚙ Command" name="message" rows="3"
+            cols="19"></textarea>
+      </div>
+   </div>
 
-         <div id="phnNoti">
-            <div>
-               <div id="phnNotify">Phone Notifications will appear here </div>
-            </div>
-         </div>
+   <div class="File_Send_receive">
 
+
+      <div id="sendfile">
+         <form enctype="multipart/form-data">
+            <label class="file-upload" id="file-upload-label">
+               <input type="file" multiple id="file_open" onchange="updateFileLabel()" />
+               Select files to send
+            </label>
+            <input type="button" class="btn" value="Send" onclick="uploadFiles()" />
+            <div id="uploadStatus" class="mb-5"></div>
+         </form>
       </div>
 
-   </body>
-   <script src="script.js"></script>
+
+
+      <div id="fileReq">
+         <input type="button" value="File Request" class="btn" onclick="receiveFile()"></input>
+         <span id="statusMessage" style="display: none;"></span>
+         <a id="downloadLink" style="display: none;" download>Download File</a>
+      </div>
+      <br>
+   </div>
+   <div class="hidden otherItemsContainer ">
+      <div id="media_control">
+         <div>Music control 🎶</div>
+         <div>
+            <input value="⏪" command="previous" type="button" class="media_button" />
+            <input value="⏯️" command="play_pause" type="button" class="media_button" />
+            <input value="⏹️" command="stop" class="media_button" type="button" />
+            <input value="⏩" command="next" type="button" class="media_button" />
+         </div>
+         <div id="current_song"></div>
+      </div>
+      <br>
+
+      <div id="phnNoti">
+         <div>
+            <div id="phnNotify">Phone Notifications will appear here </div>
+         </div>
+      </div>
+
+   </div>
+
+</body>
+<script src="script.js"></script>
+
 </html>
+
 </html>

@@ -1,0 +1,100 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+padding: 2px;
+background-color: black;
+color: white;
+width: 100%;
+}
+.hidden {
+display: none;
+}
+.loginContainer_mb{
+margin-bottom: 15px;
+}
+.mb{
+margin-bottom: 10px;
+}
+.container {
+background-color: white;
+color: black;
+width: 700px;
+border-radius: 20px;
+border: 2px solid black;
+padding: 2px;
+}
+.heading{
+color: red;
+}
+#media_control{
+}
+.box{
+height: 22px;
+padding-left: 10px;
+border-style: none;
+}
+.btn{
+height: 23px;
+padding: 0px 7px;
+box-shadow: 1px 1px 7px #ff0000;
+border-radius: 5px;
+border-style: none;
+background-color: rgb(255, 208, 0);
+cursor: pointer;
+color: black;
+}
+.btn:hover{
+background-color: #ff6600;
+transition-duration: 500ms;
+}
+.options{
+margin: 10px 0;
+
+}
+input[type="file"] {
+display: none;
+}
+.file-upload {
+border-radius: 7px;
+border-style: none;
+border: 1px orangered solid;
+display: inline-block;
+margin: 10px 0;
+padding: 2px 5px;
+cursor: pointer;
+}
+.flex{
+display: flex;
+}
+.space-x-3 > :not([hidden]) ~ :not([hidden]) {
+--tw-space-x-reverse: 0;
+margin-right: calc(0.50rem/* 12px */ * var(--tw-space-x-reverse));
+margin-left: calc(0.50rem/* 12px */ * calc(1 - var(--tw-space-x-reverse)));
+}
+.rounded{
+border-radius: 7px;
+border-style: none;
+border: 1px orangered solid;
+}
+.mt-2{
+margin-top: 10px;
+}
+.mb-5{
+margin-bottom: 5px;
+}
+.media_button{
+background: transparent;
+border: none;
+cursor: pointer;
+font-size: 40px;
+margin: 0px;
+padding: 0px;
+}
+#media_volume{
+font-size: 50px;
+font-weight: bold;
+}
