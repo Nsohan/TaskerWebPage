@@ -139,7 +139,7 @@ const shutUp = () => sendShutUp("ShutUp");
 const sendShutUp = (command) =>
   fetch(`/command?shut=${encodeURIComponent(command)}`);
 
-const KillApp = () => sendKillApp("KillApp");
+const killApp = () => sendKillApp("KillApp");
 const sendKillApp = (command) =>
   fetch(`/command?killapp=${encodeURIComponent(command)}`);
 
@@ -151,15 +151,15 @@ const unlock = () => sendUnlock("unlock");
 const sendUnlock = (command) =>
   fetch(`/command?unlock=${encodeURIComponent(command)}`);
 
-const ScreenLock = () => sendScreenLock("ScreenLock");
+const screenLock = () => sendScreenLock("ScreenLock");
 const sendScreenLock = (command) =>
-  fetch(`/command?screenLock=${encodeURIComponent(command)}`);
+  fetch(`/command?screen_lock=${encodeURIComponent(command)}`);
 
-const Reboot = () => sendReboot("Reboot");
+const reboot = () => sendReboot("Reboot");
 const sendReboot = (command) =>
   fetch(`/command?reboot=${encodeURIComponent(command)}`);
 
-const Siren = () => sendSiren("Siren");
+const siren = () => sendSiren("Siren");
 const sendSiren = (command) =>
   fetch(`/command?siren=${encodeURIComponent(command)}`);
 
@@ -248,7 +248,7 @@ async function uploadFiles() {
 
 //receive file req
 const sendReceiveReq = (command) =>
-  fetch(`/fileReq?fileReq=${encodeURIComponent(command)}`);
+  fetch(`/filereq?filereq=${encodeURIComponent(command)}`);
 const receiveFile = () => {
   // Display the status message
   const statusMessage = document.getElementById("statusMessage");
@@ -294,18 +294,21 @@ document.querySelectorAll(".media_button").forEach((button) => {
   };
 });
 
-// Updating clipboard from phone to webpage
+//Updating clipboard from phone to webpage
+//Updating clipboard from phone to webpage
 const updateClipboard = async () => {
   try {
     const clip = await fetchGetText("/clipboard");
     document.querySelector("#ClipText").value = clip;
-  } catch (error) {
-    // Handle any errors that occur during the fetch request
-    console.error("Error fetching clipboard:", error);
+  } finally {
+    updateClipboard();
   }
 };
-// Call updateClipboard() once when the page is loaded
-window.addEventListener("load", updateClipboard);
+updateClipboard();
+
+
+
+
 
 //updating currently opened app on phone
 const updateOpenedApp = async () => {

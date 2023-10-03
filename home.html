@@ -35,7 +35,7 @@
 
          <div class="">
             <div id="current_app">Current opened App name will appear here </div>
-            <input type="button" class="btn" value="Kill App" onclick="KillApp()"></input>
+            <input type="button" class="btn" value="Kill App" onclick="killApp()"></input>
          </div>
 
       </div>
@@ -57,13 +57,13 @@
       </div>
       <div class="flex space-x-3 mt-2">
          <div id="ScreenLock">
-            <input type="button" class="btn" value="Screen Lock" onclick="ScreenLock()"></input>
+            <input type="button" class="btn" value="Screen Lock" onclick="screenLock()"></input>
          </div>
          <div id="Reboot">
-            <input type="button" class="btn" value="Reboot" onclick="Reboot()"></input>
+            <input type="button" class="btn" value="Reboot" onclick="reboot()"></input>
          </div>
          <div id="Siren">
-            <input type="button" class="btn" value="Siren" onclick="Siren()"></input>
+            <input type="button" class="btn" value="Siren" onclick="siren()"></input>
          </div>
       </div>
 
@@ -129,6 +129,13 @@
             <input value="⏹️" command="stop" class="media_button" type="button" />
             <input value="⏩" command="next" type="button" class="media_button" />
          </div>
+         	
+         <div>
+			<input value="🔉" command="volume_down" type="button" class="media_button" />
+			<span id="media_volume"></span>
+			<input value="🔊" command="volume_up" type="button" class="media_button" />
+			<input value="🔇" command="mute" type="button" class="media_button" />
+		</div>
          <div id="current_song"></div>
       </div>
       <br>
