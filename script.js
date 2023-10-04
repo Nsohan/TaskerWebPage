@@ -247,39 +247,68 @@ async function uploadFiles() {
 }
 
 //receive file req
+// Receive file req
+// Receive file req
 const sendReceiveReq = (command) =>
   fetch(`/filereq?filereq=${encodeURIComponent(command)}`);
+
 const receiveFile = () => {
   // Display the status message
   const statusMessage = document.getElementById("statusMessage");
   statusMessage.style.display = "block";
   statusMessage.textContent = "Request sent. Please wait";
 
-  sendReceiveReq("sendFile")
-    .then((response) => {
-      if (response.status === 200) {
-        // File found, process and display download link
-        return response.blob();
-      } else if (response.status === 404) {
-        // File not found, display appropriate message
-        statusMessage.textContent = "File not found";
-        throw new Error("File not found");
-      } else {
-        throw new Error("Unexpected response status: " + response.status);
-      }
-    })
-    .then((blob) => {
-      // Create a blob URL for the received file
-      const blobUrl = window.URL.createObjectURL(blob);
-      // Set the download link's href and display it
-      const downloadLink = document.getElementById("downloadLink");
-      downloadLink.href = blobUrl;
-      downloadLink.style.display = "block";
-    })
-    .catch((error) => {
-      console.error("Error receiving file:", error);
-    });
+  const downloadLink = document.getElementById("downloadLink");
+
+  // Define a recursive function to handle downloading multiple files
+  const downloadNextFile = () => {
+    sendReceiveReq("sendFile")
+      .then((response) => {
+        if (response.status === 201 || response.status === 200) {
+          // Extract the filename from the Content-Disposition header
+          const contentDisposition = response.headers.get("Content-Disposition");
+          const filenameMatch = contentDisposition.match(/filename="(.+)"/);
+
+          if (filenameMatch && filenameMatch[1]) {
+            const filename = filenameMatch[1];
+            // File found, process and display download link with the actual filename
+            return response.blob().then((blob) => {
+              // Create a blob URL for the received file
+              const blobUrl = window.URL.createObjectURL(blob);
+              // Set the download link's href and display it with the actual filename
+              downloadLink.href = blobUrl;
+              downloadLink.style.display = "block";
+              downloadLink.setAttribute("download", filename); // Set the download attribute
+              downloadLink.click(); // Trigger the click event to initiate download
+
+              if (response.status === 200) {
+                // All files have been downloaded, display a completion message
+                statusMessage.textContent = "All files downloaded successfully";
+              } else {
+                // Continue to download the next file
+                downloadNextFile();
+              }
+            });
+          } else {
+            // If the filename couldn't be extracted, display an error message
+            statusMessage.textContent = "Filename not found in the response";
+            throw new Error("Filename not found in the response");
+          }
+        } else {
+          // If the status code is neither 201 nor 200, display an error message
+          statusMessage.textContent = "Unexpected response status: " + response.status;
+          throw new Error("Unexpected response status: " + response.status);
+        }
+      })
+      .catch((error) => {
+        console.error("Error receiving file:", error);
+      });
+  };
+
+  // Start downloading files
+  downloadNextFile();
 };
+
 
 
 
@@ -305,7 +334,6 @@ const updateClipboard = async () => {
   }
 };
 updateClipboard();
-
 
 
 
