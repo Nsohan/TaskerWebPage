@@ -187,6 +187,7 @@ const getTasks = (command) => {
       console.error("Error fetching tasks:", error);
     });
 };
+
 //send task option to server
 const sendSelectedTask = () => {
   const selectElement = document.getElementById("tasks");
@@ -247,8 +248,6 @@ async function uploadFiles() {
 }
 
 //receive file req
-// Receive file req
-// Receive file req
 const sendReceiveReq = (command) =>
   fetch(`/filereq?filereq=${encodeURIComponent(command)}`);
 

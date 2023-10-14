@@ -1,8 +1,9 @@
 *{
     margin: 0;
-    padding: 0;
+    padding: 2px;
     box-sizing: border-box;
 }
+ 
 
 body {
 padding: 2px;
@@ -22,10 +23,10 @@ margin-bottom: 10px;
 .container {
 background-color: white;
 color: black;
-width: 700px;
+width: 370px;
 border-radius: 20px;
 border: 2px solid black;
-padding: 2px;
+padding: 10px 2px;
 }
 .heading{
 color: red;
@@ -33,13 +34,13 @@ color: red;
 #media_control{
 }
 .box{
-height: 22px;
+height: 30px;
 padding-left: 10px;
 border-style: none;
 }
 .btn{
-height: 23px;
-padding: 0px 7px;
+height: 25px;
+padding: 0px 10px;
 box-shadow: 1px 1px 7px #ff0000;
 border-radius: 5px;
 border-style: none;
